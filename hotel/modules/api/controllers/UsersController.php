@@ -52,19 +52,9 @@ class UsersController extends ActiveController
     {
         if (\Yii::$app->request->isPost) {
             $params = \Yii::$app->request->post();
-            if(isset($params['wxOrPhone']) && isset($params['password'])){
-                $WxOrPhone = $params['wxOrPhone'];
-                $password = $params['password'];
-                $user = UserUtils::getUser($WxOrPhone,$password);
-            }else{
-                $result = [
-                    'data' => '',
-                    'status' => 'error',
-                    'code' => 1100,
-                    'msg' => \Yii::$app -> params['errorCode']['1100'],
-                ];
-                return $result;
-            }
+            $WxOrPhone = $params['wxOrPhone'];
+            $password = $params['password'];
+            $user = UserUtils::getUser($WxOrPhone,$password);
             if (isset($user)) {
                 if($user -> status == 0){
                     //返回一个用户未审核的错误码
